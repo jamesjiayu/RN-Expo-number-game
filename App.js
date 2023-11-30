@@ -1,23 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, SafeAreaView, Text } from "react-native";
+import { Button, FlatList, TextInput, View } from "react-native-web";
+import TextInput1 from "./components/TextInput1";
+import TextItem from "./components/TextItem";
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <SafeAreaView style={styles.container}>
-        <Text style={styles.h1}>Hello CodeSandbox</Text>
-        <Text style={styles.h2}>
-          Start editing to see some magic happen, even on your mobile device!
-        </Text>
-        <br />
-        <br />
-        <Text style={styles.paragraph}>
-          Open Expo on your mobile device with scanning the QR code in the
-          application log under the start tab.
-        </Text>
-      </SafeAreaView>
-    );
-  }
+export default function App() {
+  const [texts, setTexts] = useState([]);
+  const handlePress = (text) => {
+    setTexts((prevTexts) => [
+      ...prevTexts,
+      { id: Math.random.toString(), value: text },
+    ]);
+  };
+  //   <View>
+  //   {texts.map((tx) => (
+  //     <Text key={tx}>{tx}</Text>
+  //   ))}
+  // </View>
+  //  <TextInput1 handlePress={handlePress} />
+  return (
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        data={texts}
+        keyExtractor={(item) => item.id}
+        renderItem={(itemData) => <TextItem value={itemData.item.value} />}
+      />
+
+      <Text style={styles.h1}>Hello CodeSandbox</Text>
+      <Text style={styles.h2}>
+        Start editing to see some magic happen, even on your mobile device!
+      </Text>
+      <br />
+      <br />
+      <Text style={styles.paragraph}>
+        Open Expo on your mobile device with scanning the QR code in the
+        application log under the start tab.
+      </Text>
+    </SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({
