@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { StyleSheet, SafeAreaView, Text } from "react-native";
-import { Button, FlatList, TextInput, View } from "react-native-web";
+import { Button, FlatList, Pressable, TextInput, View } from "react-native-web";
 import TextInput1 from "./components/TextInput1";
 import TextItem from "./components/TextItem";
 
 export default function App() {
   const [texts, setTexts] = useState([]);
+  const [visible, setVisible] = useState(false);
   const handlePress = (text) => {
     setTexts((prevTexts) => [
       ...prevTexts,
@@ -17,13 +18,22 @@ export default function App() {
   //     <Text key={tx}>{tx}</Text>
   //   ))}
   // </View>
-  //  <TextInput1 handlePress={handlePress} />
+  //
   return (
     <SafeAreaView style={styles.container}>
+      <Pressable onPress={setVisible(true)}>
+        <Text>I'm pressable!</Text>
+      </Pressable>
+      <TextInput1 handlePress={handlePress} visible={visible} />
       <FlatList
         data={texts}
         keyExtractor={(item) => item.id}
-        renderItem={(itemData) => <TextItem value={itemData.item.value} />}
+        renderItem={(itemData) => (
+          <TextItem
+            value={itemData.item.value}
+            onDelete={() => console.log("delete it")}
+          />
+        )}
       />
 
       <Text style={styles.h1}>Hello CodeSandbox</Text>

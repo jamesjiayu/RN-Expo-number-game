@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { Text } from "react-native";
-import { View } from "react-native-web";
+import { Pressable, View } from "react-native-web";
 
 const TextItem = (props) => {
   return (
-    <View>
-      <Text>{props.value}</Text>
-    </View>
+    <Pressable onPress={props.onDelete}>
+      <View>
+        <Text>{props.value}</Text>
+      </View>
+    </Pressable>
   );
 };
 export default TextItem;
