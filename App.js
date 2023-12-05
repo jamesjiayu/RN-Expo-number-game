@@ -1,18 +1,21 @@
 import React, { useState } from "react";
 import { StyleSheet, SafeAreaView, Text } from "react-native";
 import { Button, FlatList, Pressable, TextInput, View } from "react-native-web";
-import TextInput1 from "./components/TextInput1";
-import TextItem from "./components/TextItem";
+import Header from "./components/Header";
+import StartGameScreen from "./screens/StartGameScreen";
+// import TextInput1 from "./components/TextInput1";
+// import TextItem from "./components/TextItem";
 
 export default function App() {
-  const [texts, setTexts] = useState([]);
-  const [visible, setVisible] = useState(false);
-  const handlePress = (text) => {
-    setTexts((prevTexts) => [
-      ...prevTexts,
-      { id: Math.random.toString(), value: text },
-    ]);
-  };
+  // const [texts, setTexts] = useState([]);
+  // const [visible, setVisible] = useState(false);
+  // const handlePress = (text) => {
+  //   setTexts((prevTexts) => [
+  //     ...prevTexts,
+  //     { id: Math.random.toString(), value: text },
+  //   ]);
+  //   setVisible(false);
+  // };
   //   <View>
   //   {texts.map((tx) => (
   //     <Text key={tx}>{tx}</Text>
@@ -20,8 +23,10 @@ export default function App() {
   // </View>
   //
   return (
-    <SafeAreaView style={styles.container}>
-      <Pressable onPress={setVisible(true)}>
+    <SafeAreaView style={styles.screen}>
+      <Header title="Guess a number" />
+      <StartGameScreen />
+      {/* <Pressable onPress={() => setVisible(true)}>
         <Text>I'm pressable!</Text>
       </Pressable>
       <TextInput1 handlePress={handlePress} visible={visible} />
@@ -34,23 +39,13 @@ export default function App() {
             onDelete={() => console.log("delete it")}
           />
         )}
-      />
-
-      <Text style={styles.h1}>Hello CodeSandbox</Text>
-      <Text style={styles.h2}>
-        Start editing to see some magic happen, even on your mobile device!
-      </Text>
-      <br />
-      <br />
-      <Text style={styles.paragraph}>
-        Open Expo on your mobile device with scanning the QR code in the
-        application log under the start tab.
-      </Text>
+      /> */}
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  screen: { flex: 1 },
   container: {
     flex: 1,
     justifyContent: "center",
