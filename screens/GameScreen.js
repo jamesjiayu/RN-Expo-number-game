@@ -7,7 +7,7 @@ import {
   TextInput,
   View,
 } from "react-native-web";
-import { useRef } from "react/cjs/react.production.min";
+import { useEffect, useRef } from "react/cjs/react.production.min";
 import Card from "../components/Card";
 import NumberContainer from "../components/NumberContainer";
 import colors from "../constants/colors";
@@ -28,6 +28,9 @@ const GameScreen = (props) => {
   );
   const currentLow = useRef(1);
   const currentHigh = useRef(100);
+  useEffect(() => {
+    //p60. 4.19
+  });
   const nextGuessHandler = (direction) => {
     if (
       (direction === "lower" && currentGuess < props.userChoice) ||
@@ -35,7 +38,7 @@ const GameScreen = (props) => {
     ) {
       console.log("wrong direction");
       return;
-      // Alert.alert("Don't lie!");
+      // Alert.alert("Don't lie!"); //
     }
     if (direction === "lower") {
       currentHigh.current = currentGuess;
