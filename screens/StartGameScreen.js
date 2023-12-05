@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Text } from "react-native";
 import {
   Alert,
+  Keyboard,
   Pressable,
   StyleSheet,
   TextInput,
@@ -9,6 +10,7 @@ import {
 } from "react-native-web";
 import Card from "../components/Card";
 import Input from "../components/Input";
+import NumberContainer from "../components/NumberContainer";
 import colors from "../constants/colors";
 
 const StartGameScreen = (props) => {
@@ -26,17 +28,34 @@ const StartGameScreen = (props) => {
     const chosenNumber = parseInt(enteredValue);
     if (isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99) {
       Alert.alert("invalid number", "number has to be between 1 to 99", [
-        { text: "OK", style: "destructive", onPress: { resetInputHandler } },
+        { text: "OK", style: "destructive", onPress: resetInputHandler },
       ]);
+      //if (Platform.OS === 'web') {
+      //   window.alert('invalid number');
+      // } else {
+      //   Alert.alert(...);
+      // }
       return;
     }
     setConfirmed(true);
     setSelectedNumber(chosenNumber);
     setEnteredValue(""); //batch 3 state together
+    Keyboard.dismiss();
   };
   let confirmedOutput;
   if (confirmed) {
-    confirmedOutput = <Text>Chosen Number is {selectedNumber}</Text>;
+    confirmedOutput = (
+      <Card style={styles.summaryContainer}>
+        <Text>Chosen Number is :</Text>
+        <NumberContainer>{selectedNumber} </NumberContainer>
+        <Pressable
+          style={styles.btn}
+          onPress={() => props.onStartGame(selectedNumber)}
+        >
+          <Text>Start Game</Text>
+        </Pressable>
+      </Card>
+    );
   }
   return (
     <View style={styles.screen}>
@@ -82,9 +101,13 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     width: 300,
-    MaxWidth: "80%",
+    maxWidth: "80%",
     alignItems: "center",
   },
   title: { fontSize: 20, marginVertical: 10 },
+  summaryContainer: {
+    marginTop: 20,
+    alignItems: "center",
+  },
 });
 export default StartGameScreen;

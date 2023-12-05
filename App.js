@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, SafeAreaView, Text } from "react-native";
 import { Button, FlatList, Pressable, TextInput, View } from "react-native-web";
 import Header from "./components/Header";
+import GameScreen from "./screens/GameScreen";
 import StartGameScreen from "./screens/StartGameScreen";
 // import TextInput1 from "./components/TextInput1";
 // import TextItem from "./components/TextItem";
@@ -21,11 +22,19 @@ export default function App() {
   //     <Text key={tx}>{tx}</Text>
   //   ))}
   // </View>
-  //
+  const [userNumber, setUserNumber] = useState();
+  const startGameHandler = (selectedNumber) => {
+    setUserNumber(selectedNumber);
+  };
+  let content = <StartGameScreen onStartGame={startGameHandler} />;
+  if (userNumber) {
+    content = <GameScreen userChoice={userNumber} />;
+  }
   return (
     <SafeAreaView style={styles.screen}>
       <Header title="Guess a number" />
-      <StartGameScreen />
+      {content}
+
       {/* <Pressable onPress={() => setVisible(true)}>
         <Text>I'm pressable!</Text>
       </Pressable>
